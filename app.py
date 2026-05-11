@@ -1,6 +1,7 @@
 from flask import Flask, render_template
 import pandas as pd
 import matplotlib
+import os
 
 matplotlib.use("Agg")
 
@@ -47,6 +48,8 @@ def inicio():
 
     categorias = ["NA" if pd.isna(c) else str(c) for c in frecuencia_absoluta.index]
     valores = frecuencia_absoluta.values
+
+    os.makedirs("static/graficas", exist_ok=True)
 
     plt.figure(figsize=(8, 4))
     plt.bar(categorias, valores)
