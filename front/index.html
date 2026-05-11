@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Análisis Estadístico de Datos</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+</head>
+<body class="bg-light">
+
+    <div class="container mt-5">
+        <div class="jumbotron text-center">
+            <h1 class="display-4">Análisis Estadístico de Datos</h1>
+            <p class="lead">Frecuencias, estadísticas y gráficas generadas con Python</p>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h3 class="mb-4">Primeros 10 registros del archivo CSV</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                {% for columna in columnas %}
+                                <th>{{ columna }}</th>
+                                {% endfor %}
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fila in registros %}
+                            <tr>
+                                {% for columna in columnas %}
+                                <td>{{ fila[columna] }}</td>
+                                {% endfor %}
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h3 class="mb-4">Media, Mediana y Moda</h3>
+
+                {% for variable, valores in estadisticas.items() %}
+                <h5 class="mt-4">{{ variable|capitalize }}</h5>
+
+                <table class="table table-bordered">
+                    <tr>
+                        <th>Media</th>
+                        <th>Mediana</th>
+                        <th>Moda</th>
+                    </tr>
+                    <tr>
+                        <td>{{ valores.media }}</td>
+                        <td>{{ valores.mediana }}</td>
+                        <td>{{ valores.moda }}</td>
+                    </tr>
+                </table>
+                {% endfor %}
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body">
+                <h3 class="mb-4">Tabla de Frecuencias</h3>
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Categoría</th>
+                                <th>Frecuencia Absoluta</th>
+                                <th>Frecuencia Relativa (%)</th>
+                                <th>Frecuencia Acumulada</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for fila in tabla_frecuencias %}
+                            <tr>
+                                <td>{{ fila.categoria }}</td>
+                                <td>{{ fila.frecuencia_absoluta }}</td>
+                                <td>{{ fila.frecuencia_relativa }}</td>
+                                <td>{{ fila.frecuencia_acumulada }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                <h3 class="mb-4">Gráfica de Barras</h3>
+                <img src="{{ url_for('static', filename='graficas/barras.png') }}" class="img-fluid rounded">
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                <h3 class="mb-4">Diagrama de Pastel</h3>
+                <img src="{{ url_for('static', filename='graficas/pastel.png') }}" class="img-fluid rounded">
+            </div>
+        </div>
+
+        <div class="card shadow mb-4">
+            <div class="card-body text-center">
+                <h3 class="mb-4">Polígono de Frecuencias</h3>
+                <img src="{{ url_for('static', filename='graficas/poligono.png') }}" class="img-fluid rounded">
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
